@@ -1,20 +1,39 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
+require('dotenv').config()
+import express, { json, urlencoded, static as serveStatic} from 'express'
+import cookieParser from 'cookie-parser'
+import { sequelize } from './app/models'
+import logger from 'morgan'
 
-const app = express();
-const corsOption = { origin: 'http://localhost:3001' };
+const app = express()
 
-app.use(cors(corsOption));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(logger('dev'))
+app.use(json())
+app.use(urlencoded({
+  extended: true
+}))
+app.use(cookieParser())
+app.use(serveStatic('app/public'))
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the server' });
-});
+// Set app config
+const title = process.env.DB_DEV_NAME
+const port = process.env.PORT
+const baseUrl = process.env.URL + port
 
-const PORT = precess.env.PORT || 4000
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization, x-access-token'
+  )
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
+    return res.status(200).json({})
+  }
+  next()
+})
 
-app.listen(PORT, () => {
-  console.log('Server running on port: %d', PORT)
+require('./app/router/router.js')(app)
+
+sequelize.sync().then(() => {
+  app.listen(port, () => console.log(title + ' run on ' + baseUrl))
 })

@@ -2,27 +2,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Statuses', {
+    await queryInterface.createTable('laundry_services', {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUID
+        type: Sequelize.INTEGER
       },
-      title: {
+      service_name: {
         type: Sequelize.STRING
       },
-      body: {
+      service_description: {
         type: Sequelize.STRING
       },
-      user_id: {
-        allowNull: false,
-        type: Sequelize.STRING,
-        references: {
-          model: 'Users',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+      service_price: {
+        type: Sequelize.DECIMAL
       },
       created_at: {
         allowNull: false,
@@ -34,7 +28,7 @@ module.exports = {
       }
     });
   },
-  async down(queryInterface, _) {
-    await queryInterface.dropTable('Statuses');
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('laundry_services');
   }
 };
