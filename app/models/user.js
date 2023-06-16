@@ -1,60 +1,23 @@
 'use strict';
-const { Model } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import { Model } from 'sequelize';
+
+export default (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       User.belongsToMany(models.Role, {
-        through: 'user_roles',
+        through: models.UserRole,
         foreignKey: 'user_id',
         otherKey: 'role_id',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });
-      User.hasMany(models.Status, {
-        foreignKey: {
-          name: 'user_id',
-          allowNull: false
-        },
-        as: 'statuses',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      });
-      User.hasOne(models.Admin, {
-        foreignKey: {
-          name: 'user_id',
-          allowNull: false
-        },
-        as: 'admins',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      });
-      User.hasOne(models.Customer, {
-        foreignKey: {
-          name: 'user_id',
-          allowNull: false
-        },
-        as: 'customers',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      });
-      User.hasOne(models.Driver, {
-        foreignKey: {
-          name: 'user_id',
-          allowNull: false
-        },
-        as: 'drivers',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      });
     }
-
-    static codeName = 'usr';
   }
 
   User.init(
     {
       id: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false
       },
@@ -73,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'User',
-      timestamps: false
+      underscored: true
     }
   );
   return User;
