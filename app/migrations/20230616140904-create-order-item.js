@@ -12,7 +12,10 @@ module.exports = {
       order_id: {
         type: Sequelize.INTEGER
       },
-      laundry_item_id: {
+      apparel_id: {
+        type: Sequelize.INTEGER
+      },
+      service_id: {
         type: Sequelize.INTEGER
       },
       quantity: {

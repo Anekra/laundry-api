@@ -1,20 +1,30 @@
 'use strict';
-import { Model } from 'sequelize';
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
-  class LaundryService extends Model {
+module.exports = (sequelize, DataTypes) => {
+  class Service extends Model {
     static associate(models) {
-      
+      Service.belongsToMany(models.Order, {
+        through: models.OrderItem,
+        foreignKey: 'service_id',
+        otherKey: 'order_id',
+        as: 'service-order',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
     }
   }
-  LaundryService.init({
-    service_name: DataTypes.STRING,
-    service_description: DataTypes.STRING,
-    service_price: DataTypes.DECIMAL
-  }, {
-    sequelize,
-    modelName: 'LaundryService',
-    underscored: true,
-  });
-  return LaundryService;
+  Service.init(
+    {
+      service_name: DataTypes.STRING,
+      service_description: DataTypes.STRING,
+      service_price: DataTypes.DECIMAL
+    },
+    {
+      sequelize,
+      modelName: 'Service',
+      underscored: true
+    }
+  );
+  return Service;
 };

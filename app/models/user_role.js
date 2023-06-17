@@ -1,7 +1,7 @@
 'use strict';
-import { Model } from 'sequelize';
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   class UserRole extends Model {
     static associate(models) {
       UserRole.belongsTo(models.User, {
@@ -29,7 +29,7 @@ export default (sequelize, DataTypes) => {
       user_id: {
         allowNull: false,
         primaryKey: true,
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: 'users',
           key: 'id'

@@ -1,10 +1,34 @@
 'use strict';
-import { Model } from 'sequelize';
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
     static associate(models) {
-      
+      Order.belongsTo(models.User, {
+        foreignKey: {
+          name: 'customer_id',
+          allowNull: false
+        },
+        as: 'order-customer',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
+      Order.belongsToMany(models.Apparel, {
+        through: models.OrderItem,
+        foreignKey: 'order_id',
+        otherKey: 'apparel_id',
+        as: 'order-apparel',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
+      Order.belongsToMany(models.Service, {
+        through: models.OrderItem,
+        foreignKey: 'order_id',
+        otherKey: 'service_id',
+        as: 'order-service',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
     }
   }
   Order.init({
