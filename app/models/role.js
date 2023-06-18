@@ -35,7 +35,36 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Role',
-      underscored: true
+      underscored: true,
+      hooks: {
+        beforeCreate: (role) => {          
+          console.log('Before creating Role:', role.name);
+        },
+        afterCreate: (role) => {          
+          console.log('After creating Role:', role.name);
+        },
+        beforeUpdate: (role) => {          
+          console.log('Before updating Role:', role.name);
+        },
+        afterUpdate: (role) => {          
+          console.log('After updating Role:', role.name);
+        },
+        beforeDestroy: (role) => {
+          console.log('Before deleting Role:', role.name);
+        },
+        afterDestroy: (role) => {
+          console.log('After deleting Role:', role.name);
+        },
+        beforeBulkCreate: (role) => {
+          console.log('After bulk creating Role:', role.name);
+        },
+        beforeBulkUpdate: (role) => {
+          console.log('After bulk updating Role:', role.name);
+        },
+        beforeBulkDestroy: (role) => {
+          console.log('After bulk deleting Role:', role.name);
+        }
+      }
     }
   );
   return Role;

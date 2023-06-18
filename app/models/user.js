@@ -49,7 +49,36 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'User',
-      underscored: true
+      underscored: true,
+      hooks: {
+        beforeCreate: (user) => {          
+          console.log('Before creating User:', user.name);
+        },
+        afterCreate: (user) => {          
+          console.log('After creating User:', user.name);
+        },
+        beforeUpdate: (user) => {          
+          console.log('Before updating User:', user.name);
+        },
+        afterUpdate: (user) => {          
+          console.log('After updating User:', user.name);
+        },
+        beforeDestroy: (user) => {
+          console.log('Before deleting User:', user.name);
+        },
+        afterDestroy: (user) => {
+          console.log('After deleting User:', user.name);
+        },
+        beforeBulkCreate: (user) => {
+          console.log('After bulk creating User:', user.name);
+        },
+        beforeBulkUpdate: (user) => {
+          console.log('After bulk updating User:', user.name);
+        },
+        beforeBulkDestroy: (user) => {
+          console.log('After bulk deleting User:', user.name);
+        }
+      }
     }
   );
   return User;
