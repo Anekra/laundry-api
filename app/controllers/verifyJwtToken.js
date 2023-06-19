@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/configRoles.js');
-const User = require('../models').User;
+const User = require('../models/index.js').User;
 
 module.exports = {
   async verifyToken(req, res, next) {
@@ -19,23 +19,24 @@ module.exports = {
     if (!token) {
       return res.status(403).send({
         auth: false,
-        message: 'Error',
+        message: 'Error 1',
         errors: 'No token provided'
       });
     }
 
     try {
-      const decoded = verify(token, secret);
+      const decoded = jwt.verify(token, config.secret);
       req.userId = decoded.id;
       next();
     } catch (err) {
       res.status(500).send({
         auth: false,
-        message: 'Error',
+        message: 'Error 2',
         errors: err
       });
     }
   },
+
   async isAdmin(req, res, next) {
     try {
       const user = await User.findByPk(req.userId);
@@ -49,13 +50,13 @@ module.exports = {
       }
       res.status(403).send({
         auth: false,
-        error: 'Error',
+        error: 'Error 3',
         message: 'Require Admin Role'
       });
     } catch (err) {
       res.status(500).send({
         auth: false,
-        message: 'Error',
+        message: 'Error 4',
         errors: err
       });
     }

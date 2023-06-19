@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         through: models.UserRole,
         foreignKey: 'user_id',
         otherKey: 'role_id',
-        as: 'user-role',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });

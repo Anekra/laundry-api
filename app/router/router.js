@@ -1,6 +1,6 @@
 const controllers = require('../controllers');
 
-module.exports = function (app) {
+module.exports = (app) => {
   // User Auth
   app.post(
     '/api/auth/signup',
@@ -10,13 +10,33 @@ module.exports = function (app) {
     ],
     controllers.verifySign.signUp
   );
-
   app.post('/api/auth/signin', controllers.verifySign.signIn);
 
   // Apparel
-  // app.get(
-  //   '/api/apparel',
-  //   [controllers.verifyJwtToken.verifyToken],
-  //   controllers.status.listStatusUser
-  // );
+  app.post(
+    '/api/apparel',
+    [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
+    controllers.apparelController.insertApparel
+  );
+  app.get(
+    '/api/apparel',
+    [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
+    controllers.apparelController.getAllApparels
+  );
+  app.get(
+    '/api/apparel/:id',
+    [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
+    controllers.apparelController.getApparelById
+  );
+  app.put(
+    '/api/apparel/:id',
+    [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
+    controllers.apparelController.updateApparel
+  );
+  app.delete(
+    '/api/apparel/:id',
+    [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
+    controllers.apparelController.deleteApparelById
+  );
+  
 };

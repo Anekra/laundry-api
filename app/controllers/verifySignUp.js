@@ -20,7 +20,7 @@ module.exports = {
         return res.status(400).send({
           auth: false,
           email: req.body.email,
-          message: 'Error',
+          message: 'Error 1',
           errors: 'Email is already taken!'
         });
       }
@@ -30,21 +30,21 @@ module.exports = {
       console.error(error);
       res.status(500).send({
         auth: false,
-        message: 'Error',
+        message: 'Error 2',
         errors: 'Server error'
       });
     }
   },
   async checkRolesExisted(req, res, next) {
     const invalidRoles = req.body.roles.filter(
-      (role) => !roles.includes(role.toUpperCase())
+      (role) => !roles.includes(role.toLowerCase())
     );
 
     if (invalidRoles.length > 0) {
       return res.status(400).send({
         auth: false,
         email: req.body.email,
-        message: 'Error',
+        message: 'Error 3',
         errors: `Does NOT exist Role(s): ${invalidRoles.join(', ')}`
       });
     }

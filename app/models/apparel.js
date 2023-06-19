@@ -18,39 +18,39 @@ module.exports = (sequelize, DataTypes) => {
     {
       apparel_name: DataTypes.STRING,
       apparel_type: DataTypes.STRING,
-      unit_price: DataTypes.DECIMAL
+      apparel_price: DataTypes.DECIMAL
     },
     {
       sequelize,
       modelName: 'Apparel',
       underscored: true,
       hooks: {
-        beforeCreate: (role) => {          
-          console.log('Before creating Role:', role.name);
+        beforeCreate: (apparel) => {          
+          console.log('Before creating Apparel:', apparel.apparel_name);
         },
-        afterCreate: (role) => {          
-          console.log('After creating Role:', role.name);
+        afterCreate: (apparel) => {          
+          console.log('After creating Apparel:', apparel.apparel_name);
         },
-        beforeUpdate: (role) => {          
-          console.log('Before updating Role:', role.name);
+        beforeUpdate: (apparel) => {          
+          console.log('Before updating Apparel:', apparel.apparel_name);
         },
-        afterUpdate: (role) => {          
-          console.log('After updating Role:', role.name);
+        afterUpdate: (apparel) => {          
+          console.log('After updating Apparel:', apparel.apparel_name);
         },
-        beforeDestroy: (role) => {
-          console.log('Before deleting Role:', role.name);
+        beforeDestroy: (apparel) => {
+          console.log('Before deleting Apparel:', apparel.apparel_name);
         },
-        afterDestroy: (role) => {
-          console.log('After deleting Role:', role.name);
+        afterDestroy: (apparel) => {
+          console.log('After deleting Apparel:', apparel.apparel_name);
         },
-        beforeBulkCreate: (role) => {
-          console.log('After bulk creating Role:', role.name);
+        beforeBulkCreate: (apparel) => {
+          console.log('After bulk creating Apparel:', apparel.apparel_name);
         },
-        beforeBulkUpdate: (role) => {
-          console.log('After bulk updating Role:', role.name);
+        beforeBulkUpdate: (apparel) => {
+          console.log('After bulk updating Apparel:', apparel.apparel_name);
         },
-        beforeBulkDestroy: (role) => {
-          console.log('After bulk deleting Role:', role.name);
+        beforeBulkDestroy: (apparel) => {
+          console.log('After bulk deleting Apparel:', apparel.apparel_name);
         }
       }
     }

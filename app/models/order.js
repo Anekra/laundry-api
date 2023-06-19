@@ -43,23 +43,23 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Order',
     underscored: true,
     hooks: {
-      beforeCreate: (role) => {          
-        console.log('Before creating Role:', role.name);
+      beforeCreate: (order) => {          
+        console.log('Before creating Order:', order.id);
       },
-      afterCreate: (role) => {          
-        console.log('After creating Role:', role.name);
+      afterCreate: (order) => {          
+        console.log('After creating Order:', order.id);
       },
-      beforeUpdate: (role) => {          
-        console.log('Before updating Role:', role.name);
+      beforeUpdate: (order) => {          
+        console.log('Before updating Order:', order.id);
       },
-      afterUpdate: (role) => {          
-        console.log('After updating Role:', role.name);
+      afterUpdate: (order) => {          
+        console.log('After updating Order:', order.id);
       },
-      beforeDestroy: (role) => {
-        console.log('Before deleting Role:', role.name);
+      beforeDestroy: (order) => {
+        console.log('Before deleting Order:', order.id);
       },
-      afterDestroy: (role) => {
-        console.log('After deleting Role:', role.name);
+      afterDestroy: (order) => {
+        console.log('After deleting Order:', order.id);
       }
     }
   });

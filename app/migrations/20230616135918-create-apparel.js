@@ -15,7 +15,7 @@ module.exports = {
       apparel_type: {
         type: Sequelize.STRING
       },
-      unit_price: {
+      apparel_price: {
         type: Sequelize.DECIMAL
       },
       created_at: {

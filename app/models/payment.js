@@ -16,23 +16,23 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Payment',
       underscored: true,
       hooks: {
-        beforeCreate: (role) => {          
-          console.log('Before creating Role:', role.name);
+        beforeCreate: (payment) => {          
+          console.log('Before creating Payment:', payment.id);
         },
-        afterCreate: (role) => {          
-          console.log('After creating Role:', role.name);
+        afterCreate: (payment) => {          
+          console.log('After creating Payment:', payment.id);
         },
-        beforeUpdate: (role) => {          
-          console.log('Before updating Role:', role.name);
+        beforeUpdate: (payment) => {          
+          console.log('Before updating Payment:', payment.id);
         },
-        afterUpdate: (role) => {          
-          console.log('After updating Role:', role.name);
+        afterUpdate: (payment) => {          
+          console.log('After updating Payment:', payment.id);
         },
-        beforeDestroy: (role) => {
-          console.log('Before deleting Role:', role.name);
+        beforeDestroy: (payment) => {
+          console.log('Before deleting Payment:', payment.id);
         },
-        afterDestroy: (role) => {
-          console.log('After deleting Role:', role.name);
+        afterDestroy: (payment) => {
+          console.log('After deleting Payment:', payment.id);
         }
       }
     }
