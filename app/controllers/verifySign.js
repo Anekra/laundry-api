@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../models/index');
 const User = require('../models').User;
-const Role = require('../models').Role
+const Role = require('../models').Role;
 const Op = db.Sequelize.Op;
 const config = require('../config/configRoles');
 
@@ -14,8 +14,6 @@ module.exports = {
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8)
       });
-      
-      console.log('userrrrrrrrrrrrrrrrrrr ' + user);
 
       const roles = await Role.findAll({
         where: {
@@ -24,7 +22,6 @@ module.exports = {
           }
         }
       });
-      console.log('rolessssssssssssssssss ' + roles);
 
       await user.setRoles(roles, { ignoreDuplicates: true });
 
@@ -33,7 +30,6 @@ module.exports = {
         message: 'User registered successfully!',
         errors: null
       });
-
     } catch (err) {
       console.log(err);
       res.status(500).send({
@@ -41,15 +37,18 @@ module.exports = {
         message: 'Error 123',
         errors: err
       });
-
     }
   },
+
   async signIn(req, res) {
     try {
       const user = await User.findOne({
         where: {
-          email: req.body.email
-        }
+          email: {
+            [Op.eq]: req.body.email
+          }
+        },
+        attributes: ['id', 'name', 'email', 'password']
       });
 
       if (!user) {
@@ -61,7 +60,13 @@ module.exports = {
         });
       }
 
-      const passwordIsValid = compareSync(req.body.password, user.password);
+      const passwordIsValid = bcrypt.compareSync(
+        req.body.password,
+        user.password
+      );
+
+      console.log(passwordIsValid);
+
       if (!passwordIsValid) {
         return res.status(401).send({
           auth: false,
@@ -74,6 +79,7 @@ module.exports = {
       const token =
         'Bearer ' +
         jwt.sign(
+          { id: user.id },
           config.secret,
           { expiresIn: 86400 } // 24h expired
         );
@@ -84,7 +90,6 @@ module.exports = {
         message: 'Error 3',
         errors: null
       });
-
     } catch (err) {
       res.status(500).send({
         auth: false,
@@ -92,7 +97,6 @@ module.exports = {
         message: 'Error 4',
         errors: err
       });
-
     }
   }
 };

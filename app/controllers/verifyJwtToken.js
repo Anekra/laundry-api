@@ -40,14 +40,16 @@ module.exports = {
   async isAdmin(req, res, next) {
     try {
       const user = await User.findByPk(req.userId);
+      console.log(req.userId);
       const roles = await user.getRoles();
+
       for (let i = 0; i < roles.length; i++) {
-        console.log(roles[i].name);
         if (roles[i].name.toLowerCase() === 'admin') {
           next();
           return;
         }
       }
+
       res.status(403).send({
         auth: false,
         error: 'Error 3',

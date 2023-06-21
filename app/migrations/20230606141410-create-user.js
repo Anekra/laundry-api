@@ -10,12 +10,16 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       email: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       password: {
+        allowNull: false,
+        unique: true,
         type: Sequelize.STRING
       },
       created_at: {
