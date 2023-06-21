@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Service',
+      tableName: 'laundry_services',
       underscored: true,
       hooks: {
         beforeCreate: (service) => {          

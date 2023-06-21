@@ -24,8 +24,6 @@ module.exports = {
 
   async getAllApparels(req, res) {
     try {
-      console.log(typeof Apparel);
-
       const apparels = await Apparel.findAll();
 
       return res.status(200).send({
@@ -43,7 +41,7 @@ module.exports = {
 
   async getApparelById(req, res) {
     try {
-      const apparels = await Apparel.findByPk(req.params.id);
+      const apparel = await Apparel.findByPk(req.params.id);
 
       if (!apparelById) {
         res.status(404).send({
@@ -55,12 +53,12 @@ module.exports = {
       return res.status(200).send({
         status: 'Ok',
         message: 'Apparel data retrieved successfully.',
-        results: apparels
+        results: apparel
       });
     } catch (error) {
       res.status(400).send({
         status: 'Bad request',
-        message: `Error getting all apparels data: ${error}`
+        message: `Error getting apparel data: ${error}`
       });
     }
   },

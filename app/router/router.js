@@ -38,5 +38,32 @@ module.exports = (app) => {
     [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
     controllers.apparelController.deleteApparelById
   );
+
+  // Laundry Service
+  app.post(
+    '/api/service',
+    [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
+    controllers.serviceController.insertApparel
+  );
+  app.get(
+    '/api/service',
+    [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
+    controllers.serviceController.getAllServices
+  );
+  app.get(
+    '/api/service/:id',
+    [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
+    controllers.serviceController.getServiceById
+  );
+  app.put(
+    '/api/service/:id',
+    [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
+    controllers.serviceController.updateService
+  );
+  app.delete(
+    '/api/service/:id',
+    [controllers.verifyJwtToken.verifyToken, controllers.verifyJwtToken.isAdmin],
+    controllers.serviceController.deleteServiceById
+  );
   
 };
