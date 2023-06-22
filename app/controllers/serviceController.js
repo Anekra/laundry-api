@@ -1,7 +1,7 @@
 const Service = require('../models').Service;
 
 module.exports = {
-  async insertApparel(req, res) {
+  async insertService(req, res) {
     try {
       const service = await Service.create({
         service_name: req.body.service_name,
@@ -75,10 +75,11 @@ module.exports = {
       }
 
       const updatedService = await serviceById.update({
-          service_name: req.body.service_name || serviceById.service_name,
-          service_description: req.body.service_description || serviceById.service_description,
-          service_price: req.body.service_price || serviceById.service_price
-        });
+        service_name: req.body.service_name || serviceById.service_name,
+        service_description:
+          req.body.service_description || serviceById.service_description,
+        service_price: req.body.service_price || serviceById.service_price
+      });
 
       res.status(200).send({
         status: 'Ok',
